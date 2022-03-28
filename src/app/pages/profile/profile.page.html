@@ -1,0 +1,79 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-menu-button class="menu" autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title> {{'profile.title' | translate}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" mode="ios">
+  <div class="nodataa" *ngIf="netCheck == 'none'">
+    <img src="../../assets/general_images/no-data-icon-10.jpg" />
+  </div>
+  <div *ngIf="netCheck != 'none'">
+    <ion-row (click)="editprofile()">
+      <ion-col size="12">
+        <div class="profile_div">
+          <ion-item class="ion-no-padding" lines="none">
+            <!-- <img
+              class="img"
+              src="{{profile?.imagePath + profile?.image}}"
+              height="50px"
+              width="50px"
+            /> -->
+            <div style="flex-direction: column">
+              <div>
+                <ion-label>HANY</ion-label>
+              </div>
+              <div>
+                <ion-text style="color: darkgrey">hany@gmail.com</ion-text>
+              </div>
+              <div>
+                <ion-text style="color: darkgrey">02182221111</ion-text>
+              </div>
+            </div>
+
+            <!-- <ion-label>{{profile.name}}</ion-label> -->
+            <ion-button class="btn" fill="clear" mode="md" slot="end">
+              <div class="edit_div">
+                <ion-icon name="pencil-outline" class="edit_icon"></ion-icon>
+              </div>
+            </ion-button>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-item (click)="presentAlert()">
+      <ion-label>
+        <h3>Help & Support</h3>
+      </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon
+    ></ion-item>
+    <ion-item (click)="presentAlert()">
+      <ion-label>
+        <h3>Privacy Policy</h3>
+      </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon
+    ></ion-item>
+    <ion-item (click)="presentAlert()">
+      <ion-label>
+        <h3>Reedem Promo Code</h3>
+      </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon
+    ></ion-item>
+    <ion-item (click)="presentAlert()">
+      <ion-label>
+        <h3>Rate Kang Cukur</h3>
+      </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon
+    ></ion-item>
+
+    <div style="align-items: center; align-self: center; align-content: center">
+      <button style="height: 40px; width: 100px" color="var(--star-color)">
+        <ion-text>Logout</ion-text>
+      </button>
+    </div>
+  </div>
+</ion-content>

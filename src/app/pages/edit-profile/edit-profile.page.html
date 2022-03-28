@@ -1,0 +1,267 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-button (click)="back()" slot="start" fill="clear">
+      <ion-icon name="chevron-back"></ion-icon>
+    </ion-button>
+    <ion-title> {{'editProfile.title' | translate}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-row>
+    <ion-col size="12">
+      <div class="profile_div">
+        <ion-item class="ion-no-padding" lines="none">
+          <!-- <img (click)="selectImage()" class="img" height="50px" width="50px" src="{{image}}"> -->
+          <!-- <ion-label class="daatName">HANYsds</ion-label> -->
+          <!-- <ion-label class="daatName">{{data.name}}</ion-label> -->
+          <div style="flex-direction: column">
+            <div>
+              <ion-text>HANY</ion-text>
+            </div>
+            <div>
+              <ion-label style="color: darkgrey">hany@gmail.com</ion-label>
+            </div>
+            <div>
+              <ion-label style="color: darkgrey">02182221111</ion-label>
+            </div>
+          </div>
+        </ion-item>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <h1>{{'editProfile.personal' | translate}}</h1>
+
+  <div class="input-div">
+    <div class="margin-bottom">
+      <p>{{'editProfile.name' | translate}}</p>
+      <ion-input
+        [(ngModel)]="name"
+        value="{{data.name}}"
+        type="text"
+      ></ion-input>
+    </div>
+    <div class="margin-bottom">
+      <p>{{'editProfile.email' | translate}}</p>
+      <ion-input readonly="true" value="{{data.email}}" type="text"></ion-input>
+    </div>
+    <div class="margin-bottom">
+      <p>{{'editProfile.contactNmber' | translate}}</p>
+      <ion-row class="ion-no-padding">
+        <ion-col size="4">
+          <div class="code-div">
+            <ng-select
+              class="country-codeSelect"
+              [clearable]="false"
+              [(ngModel)]="code"
+              [ngModelOptions]="{standalone: true}"
+              [items]="cCode"
+              bindLabel="dial_code"
+              bindValue="dial_code"
+            >
+              <ng-template ng-label-tmp let-item="item">
+                <img
+                  height="16"
+                  width="21"
+                  src="{{'https://raw.githubusercontent.com/hjnilsson/country-flags/master/png250px/' + (item.code | lowercase) + '.png'}}"
+                  style="margin-right: 8px; margin-bottom: -2px"
+                />
+                <span>{{item.dial_code}}</span>
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index">
+                <img
+                  height="16"
+                  width="21"
+                  src="{{'https://raw.githubusercontent.com/hjnilsson/country-flags/master/png250px/' + (item.code | lowercase) + '.png'}}"
+                  style="margin-right: 8px; margin-bottom: -2px"
+                />
+                <span>{{item.dial_code}}</span>
+              </ng-template>
+            </ng-select>
+          </div>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+        <ion-col size="7">
+          <ion-input
+            [(ngModel)]="phone"
+            value="{{data.phone}}"
+            type="tel"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+  <!-- <div class="input-div">
+    <div class="margin-bottom">
+      <p>{{'profile.name' | translate}}</p>
+      <ion-input
+        readonly="true"
+        value="{{profile.name}}"
+        type="text"
+      ></ion-input>
+      
+    </div>
+    <div class="margin-bottom">
+      <p>{{'profile.email' | translate}}</p>
+      <ion-input
+        readonly="true"
+        value="{{profile.email}}"
+        type="text"
+      ></ion-input>
+    </div>
+    <div class="margin-bottom">
+      <p>{{'profile.contact' | translate}}</p>
+      <ion-row class="ion-no-padding">
+        <ion-col size="3">
+          <ion-input
+            readonly="true"
+            value="{{profile.code}}"
+            type="tel"
+          ></ion-input>
+        </ion-col>
+        <ion-col size="9">
+          <ion-input
+            readonly="true"
+            value="{{profile.phone}}"
+            type="tel"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div> -->
+
+  <h1 *ngIf="this.ispoint == 1">{{'profile.pointInfo' | translate}}</h1>
+
+  <div class="input-div" *ngIf="this.ispoint == 1">
+    <div class="pontlabel">
+      <p>{{'profile.Total_points' | translate}}</p>
+      <p class="pointInp">{{profile?.total_points}}</p>
+    </div>
+    <div class="pontlabel">
+      <p>{{'profile.Remain_points' | translate}}</p>
+      <p class="pointInp">{{profile?.remain_points}}</p>
+    </div>
+    <div class="pontlabel" *ngIf="profile?.referral_code != null">
+      <p>{{'profile.referral_code' | translate}}</p>
+      <p class="pointInps">{{profile?.referral_code}}</p>
+    </div>
+    <div class="reffralcont">
+      <ion-label class="reffercon"
+        >{{'profile.Earn' | translate}} {{refralpoint}}
+        {{'profile.referral_content' | translate}}</ion-label
+      >
+    </div>
+  </div>
+  <h1>{{'profile.changeLable' | translate}}</h1>
+
+  <div class="input-div">
+    <div class="margin-bottom">
+      <p>{{'profile.oldLabel' | translate}}</p>
+      <ion-input
+        [(ngModel)]="oldPassword"
+        value=""
+        placeholder="{{'errors.oldPlaceholder' | translate}}"
+        type="password"
+      ></ion-input>
+      <span class="err" *ngIf="oldPassword == '' && oldPasswordError">
+        {{oldPasswordError}}
+      </span>
+      <span class="err" *ngIf="successfalse == false">
+        {{'profile.notCorrect' | translate}}
+      </span>
+    </div>
+    <div class="margin-bottom">
+      <p>{{'profile.newPassword' | translate}}</p>
+      <ion-input
+        [(ngModel)]="new_Password"
+        value=""
+        placeholder="{{'errors.newPlaceholder' | translate}}"
+        type="password"
+      ></ion-input>
+      <span class="err" *ngIf="new_Password == '' && newPassError">
+        {{newPassError}}
+      </span>
+      <span class="err" *ngIf="successfalse == false">{{newPassError}}</span>
+    </div>
+    <div class="margin-bottom">
+      <p>{{'profile.ConfirmPassword' | translate}}</p>
+      <ion-input
+        [(ngModel)]="confirm"
+        value=""
+        placeholder="{{'errors.confirmPlaceholder' | translate}}"
+        type="password"
+      ></ion-input>
+
+      <span class="err" *ngIf="confirm == '' && confirmError">
+        {{confirmError}}
+      </span>
+      <span class="err" *ngIf="successfalse == false"> {{confirmError}} </span>
+    </div>
+
+    <ion-button
+      class="pass"
+      (click)="changePass()"
+      expand="full"
+      color="primary"
+      >{{'profile.ChangePassword' | translate}}</ion-button
+    >
+  </div>
+
+  <hr class="margin-top" />
+  <h1 class="ion-margin-top">{{'editProfile.Location' | translate}}</h1>
+  <p (click)="addAddres()" class="add-location ion-margin-bottom">
+    {{'editProfile.addlocation' | translate}}
+  </p>
+
+  <ion-row *ngFor="let l of address" class="ion-margin-bottom">
+    <ion-col size="1">
+      <img src="../../../assets/icon/location.png" />
+    </ion-col>
+    <ion-col size="11">
+      <p class="addresss">
+        {{l.street}}
+        <ion-button
+          *ngIf="language == 'en'"
+          class="right"
+          fill="clear"
+          (click)="removeAddress()"
+        >
+          <ion-icon name="trash" class="trash"></ion-icon>&nbsp;
+          {{'editProfile.Remove' | translate}}
+        </ion-button>
+        <ion-button
+          *ngIf="language == 'ro'"
+          class="right"
+          fill="clear"
+          (click)="removeAddress()"
+        >
+          <ion-icon name="trash" class="trash"></ion-icon>&nbsp;
+          {{'editProfile.Remove' | translate}}
+        </ion-button>
+        <ion-button
+          *ngIf="language == 'ar'"
+          class="left"
+          fill="clear"
+          (click)="removeAddress()"
+        >
+          <ion-icon name="trash" class="trash"></ion-icon>&nbsp;
+          {{'editProfile.Remove' | translate}}
+        </ion-button>
+      </p>
+      <ion-text class="locat">{{l.city}}, {{l.state}}, {{l.country}} </ion-text>
+    </ion-col>
+  </ion-row>
+
+  <div class="ion-text-center ion-margin-top">
+    <ion-button
+      class="change"
+      mode="md"
+      color="var(--blue-color)"
+      (click)="changeThis()"
+    >
+      {{'editProfile.Change' | translate}}</ion-button
+    >
+  </div>
+</ion-content>
